@@ -6,7 +6,7 @@ class Matrix {
 public:
     Matrix(int rows, int cols);
     ~Matrix();
-    int & get(int row, int col);
+    int & at(int row, int col);
     Matrix& operator=(std::initializer_list<std::initializer_list<int>> list);
 private:
     int rows;

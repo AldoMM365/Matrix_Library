@@ -19,8 +19,13 @@ Matrix::~Matrix() {
     delete matrix;
 }
 
-
-int & Matrix::get(int row, int col) {
+int & Matrix::at(int row, int col) {
+    if (matrix == nullptr) {
+        throw std::runtime_error("Uninitialized matrix");
+    }
+    if (row < 0 || row >= rows || col < 0 || col >= cols) {
+        throw std::out_of_range("Elements are out of range");
+    }
     return matrix[row][col];
 }
 
@@ -40,5 +45,6 @@ Matrix & Matrix::operator=(std::initializer_list<std::initializer_list<int>> lis
         }
         rowIndex++;
     }
+
     return *this;
 }
