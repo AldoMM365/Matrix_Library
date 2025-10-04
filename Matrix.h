@@ -7,7 +7,9 @@ public:
     Matrix(int rows, int cols);
     ~Matrix();
     int & at(int row, int col);
-    Matrix& operator=(std::initializer_list<std::initializer_list<int>> list);
+    Matrix& operator=(std::initializer_list<std::initializer_list<int>>);
+    Matrix& operator+(Matrix&);
+    Matrix& operator-(Matrix&);
 private:
     int rows;
     int cols;

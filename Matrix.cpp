@@ -20,9 +20,6 @@ Matrix::~Matrix() {
 }
 
 int & Matrix::at(int row, int col) {
-    if (matrix == nullptr) {
-        throw std::runtime_error("Uninitialized matrix");
-    }
     if (row < 0 || row >= rows || col < 0 || col >= cols) {
         throw std::out_of_range("Elements are out of range");
     }
@@ -30,10 +27,11 @@ int & Matrix::at(int row, int col) {
 }
 
 Matrix & Matrix::operator=(std::initializer_list<std::initializer_list<int>> list){
-    int rowIndex = 0;
-    int columnIndex = 0;
     if (list.size() != rows)
         throw std::invalid_argument("Provided brace-enclosed initializer list does not match current numer of rows");
+
+    int rowIndex = 0;
+    int columnIndex = 0;
 
     for (std::initializer_list<int> row : list) {
         if (row.size() != cols)
@@ -47,4 +45,30 @@ Matrix & Matrix::operator=(std::initializer_list<std::initializer_list<int>> lis
     }
 
     return *this;
+}
+
+Matrix& Matrix::operator+(Matrix& b) {
+    if (rows != b.rows || cols != b.cols) {
+        throw std::runtime_error("Cannot add matrices of different sizes");
+    }
+    Matrix* result = new Matrix(rows, cols);
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < b.cols; j++) {
+            result->matrix[i][j] = matrix[i][j] + b.matrix[i][j];
+        }
+    }
+    return *result;
+}
+
+Matrix& Matrix::operator-(Matrix& b) {
+    if (rows != b.rows || cols != b.cols) {
+        throw std::runtime_error("Cannot substract matrices of different sizes");
+    }
+    Matrix* result = new Matrix(rows, cols);
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < b.cols; j++) {
+            result->matrix[i][j] = matrix[i][j] - b.matrix[i][j];
+        }
+    }
+    return *result;
 }
