@@ -10,6 +10,8 @@ public:
     Matrix& operator=(std::initializer_list<std::initializer_list<int>>);
     Matrix& operator+(Matrix&);
     Matrix& operator-(Matrix&);
+    Matrix& operator*(Matrix&);
+    Matrix& operator*(int);
 private:
     int rows;
     int cols;

@@ -72,3 +72,29 @@ Matrix& Matrix::operator-(Matrix& b) {
     }
     return *result;
 }
+
+Matrix& Matrix::operator*(Matrix& b) {
+    if (cols != b.rows) {
+        throw std::runtime_error("The number of columns in the first matrix must be equal to the number of rows in the second matrix");
+    }
+    Matrix* result = new Matrix(rows, b.cols);
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < b.cols; j++) {
+            result->matrix[i][j] = 0;
+            for (int k = 0; k < cols; k++) {
+                result->matrix[i][j] += matrix[i][k] * b.matrix[k][j];
+            }
+        }
+    }
+    return *result;
+}
+
+Matrix & Matrix::operator*(int n) {
+    Matrix* result = new Matrix(rows, cols);
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            result->matrix[i][j] = matrix[i][j] * n;
+        }
+    }
+    return *result;
+}
